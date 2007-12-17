@@ -10,7 +10,6 @@ Summary:     GEOS (Geometry Engine, Open Source) topology library
 URL:         http://geos.refractions.net
 Source:      %{name}-%{version}.tar.bz2
 Group:       Sciences/Geosciences
-BuildRoot:   %{_tmppath}/%{name}-%{version}-root
 BuildRequires: multiarch-utils
 
 %description
