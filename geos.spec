@@ -1,10 +1,11 @@
-
-%define lib_name	%mklibname %{name} 2
-%define lib_name_c %mklibname %{name}_c 1
+%define major		3
+%define major_c		1
+%define lib_name	%mklibname %{name} %{major}
+%define lib_name_c	%mklibname %{name}_c %{major_c}
 
 Name:        geos
-Version:     2.2.3
-Release:     %mkrel 2
+Version:     3.0.0
+Release:     %mkrel 1
 License:     LGPL
 Summary:     GEOS (Geometry Engine, Open Source) topology library
 URL:         http://geos.refractions.net
@@ -69,11 +70,12 @@ rm -Rf $RPM_BUILD_ROOT
 
 %files -n %{lib_name}
 %defattr(-,root,root)
-%{_libdir}/libgeos.so.*
+%{_libdir}/libgeos-%{major}.*.so
 
 %files -n %{lib_name_c}
 %defattr(-,root,root)
-%{_libdir}/libgeos_c.so.*
+%{_libdir}/libgeos_c.so.%{major_c}
+%{_libdir}/libgeos_c.so.%{major_c}.*
 
 %files -n %{lib_name}-devel
 %defattr(-,root,root)
