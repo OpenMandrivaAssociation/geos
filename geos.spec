@@ -2,14 +2,16 @@
 %define major_c		1
 %define lib_name	%mklibname %{name} %{major}
 %define lib_name_c	%mklibname %{name}_c %{major_c}
+%define devel_name	%mklibname %{name} -d
 
 Name:        geos
 Version:     3.0.0
 Release:     %mkrel 3
-License:     LGPL
+License:     LGPLv2+
 Summary:     GEOS (Geometry Engine, Open Source) topology library
 URL:         http://geos.refractions.net
-Source:      %{name}-%{version}.tar.bz2
+Source:      http://geos.refractions.net/downloads/%{name}-%{version}.tar.bz2
+Patch0:      geos-gcc43.patch
 Group:       Sciences/Geosciences
 BuildRoot:   %{_tmppath}/%{name}-%{version}-root
 BuildRequires: multiarch-utils
@@ -35,23 +37,25 @@ Group:		Sciences/Geosciences
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
-%package -n %{lib_name}-devel
+%package -n %{devel_name}
 Summary:	Development Libraries for the GEOS topology library
 Group:		Sciences/Geosciences
 Requires:	%{lib_name} = %{version}
 Requires:	%{lib_name_c} = %{version}
 Provides:	%{name}-devel lib%{name}-devel
+Obsoletes:	%{lib_name}-devel
 
-%description -n %{lib_name}-devel
+%description -n %{devel_name}
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
-%configure
+%configure2_5x
 %make
 
 %install
@@ -86,7 +90,7 @@ rm -Rf $RPM_BUILD_ROOT
 %{_libdir}/libgeos_c.so.%{major_c}
 %{_libdir}/libgeos_c.so.%{major_c}.*
 
-%files -n %{lib_name}-devel
+%files -n %{devel_name}
 %defattr(-,root,root)
 %multiarch %{multiarch_bindir}/geos-config
 %{_bindir}/geos-config
