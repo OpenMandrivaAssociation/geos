@@ -6,7 +6,7 @@
 
 Name:        geos
 Version:     3.0.0
-Release:     %mkrel 4
+Release:     %mkrel 5
 License:     LGPLv2+
 Summary:     GEOS (Geometry Engine, Open Source) topology library
 URL:         http://geos.refractions.net
@@ -100,6 +100,4 @@ rm -Rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 %{_libdir}/*.a
 %exclude %{_libdir}/libgeos_c.so.%{major_c}*
-
-
-
+%exclude %{_libdir}/libgeos-%{major}.*.so
