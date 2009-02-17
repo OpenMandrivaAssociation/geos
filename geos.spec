@@ -5,13 +5,12 @@
 %define devel_name	%mklibname %{name} -d
 
 Name:        geos
-Version:     3.0.0
-Release:     %mkrel 5
+Version:     3.0.3
+Release:     %mkrel 1
 License:     LGPLv2+
 Summary:     GEOS (Geometry Engine, Open Source) topology library
 URL:         http://geos.refractions.net
 Source:      http://geos.refractions.net/downloads/%{name}-%{version}.tar.bz2
-Patch0:      geos-gcc43.patch
 Group:       Sciences/Geosciences
 BuildRoot:   %{_tmppath}/%{name}-%{version}-root
 BuildRequires: multiarch-utils
@@ -52,7 +51,6 @@ points, lines, polygons, and collections.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %configure2_5x
