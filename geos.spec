@@ -1,53 +1,102 @@
-%define major		3
-%define major_c		1
-%define lib_name	%mklibname %{name} %{major}
-%define lib_name_c	%mklibname %{name}_c %{major_c}
-%define devel_name	%mklibname %{name} -d
-
-Name:        geos
-Version:     3.0.3
-Release:     %mkrel 1
-License:     LGPLv2+
-Summary:     GEOS (Geometry Engine, Open Source) topology library
-URL:         http://geos.refractions.net
-Source:      http://geos.refractions.net/downloads/%{name}-%{version}.tar.bz2
-Group:       Sciences/Geosciences
-BuildRoot:   %{_tmppath}/%{name}-%{version}-root
+Name:  geos
+Version: 3.1.1
+Release: %mkrel 1
+License: LGPLv2+
+Summary: GEOS (Geometry Engine, Open Source) topology library
+URL: http://trac.osgeo.org/geos
+Source: http://download.osgeo.org/geos/%{name}-%{version}.tar.bz2  
+Group: Sciences/Geosciences
+BuildRoot:  %{_tmppath}/%{name}-%{version}-root
 BuildRequires: multiarch-utils
 
 %description
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
-%package -n %{lib_name}
-Summary:	Libraries for GEOS
-Group:		Sciences/Geosciences
-Provides:	%{name} lib%{name}
+#-----------------------------------------------------------------------------
 
-%description -n %{lib_name}
+%define major 3
+%define libname	%mklibname geos %{major}
+
+%package -n %{libname}
+Summary: Libraries for GEOS
+Group: Sciences/Geosciences
+Provides: %{name} lib%{name}
+
+%description -n %{libname}
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
-%package -n %{lib_name_c}
-Summary:	Libraries for GEOS
-Group:		Sciences/Geosciences
+%files -n %{libname}
+%defattr(-,root,root)
+%{_libdir}/libgeos-%{version}.so
 
-%description -n %{lib_name_c}
+#-----------------------------------------------------------------------------
+
+%define major_c	1
+%define libname_c %mklibname geos_c %{major_c}
+
+%package -n %{libname_c}
+Summary: Libraries for GEOS
+Group: Sciences/Geosciences
+
+%description -n %{libname_c}
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
+
+%files -n %{libname_c}
+%defattr(-,root,root)
+%{_libdir}/libgeos_c.so.%{major_c}*
+
+#-----------------------------------------------------------------------------
+
+%define devel_name	%mklibname %{name} -d
 
 %package -n %{devel_name}
-Summary:	Development Libraries for the GEOS topology library
-Group:		Sciences/Geosciences
-Requires:	%{lib_name} = %{version}
-Requires:	%{lib_name_c} = %{version}
-Provides:	%{name}-devel lib%{name}-devel
-Obsoletes:	%{lib_name}-devel
+Summary: Development Libraries for the GEOS topology library
+Group: Sciences/Geosciences
+Requires: %{libname} = %{version}
+Requires: %{libname_c} = %{version}
+Provides: %{name}-devel = %{version}
+Provides: libgeos-devel = %{version}
+Obsoletes: %{mklibname -d geos 3}
 
 %description -n %{devel_name}
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
+%files -n %{devel_name}
+%defattr(-,root,root)
+%_bindir/geos-config
+%_includedir/*
+%_libdir/*.so
+%_libdir/*.la
+%multiarch %{multiarch_bindir}/geos-config
+%exclude %{_libdir}/libgeos-%{version}.so
+
+#-----------------------------------------------------------------------------
+
+%define devel_name_static %mklibname %{name} -d -s
+
+%package -n %{devel_name_static}
+Summary: Development Libraries for the GEOS topology library
+Group: Sciences/Geosciences
+Requires: %{devel_name} = %{version}
+Provides: %{name}-static-devel = %{version}
+Provides: libgeos-static-devel = %{version}
+Obsoletes: %{mklibname -d geos 3}
+Obsoletes: %{mklibname -d -s geos 3}
+
+%description -n %{devel_name_static}
+The GEOS library provides topological operators and simple spatial constructs:
+points, lines, polygons, and collections.
+
+%files -n %{devel_name_static}
+%defattr(-,root,root)
+%_libdir/*.a
+
+
+#-----------------------------------------------------------------------------
 
 %prep
 %setup -q
@@ -57,45 +106,11 @@ points, lines, polygons, and collections.
 %make
 
 %install
-rm -Rf $RPM_BUILD_ROOT
+rm -Rf %buildroot
 %makeinstall_std
-%{__rm} -f %{buildroot}/%{_libdir}/*.la
-%multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/geos-config
+%multiarch_binaries %buildroot%{_bindir}/geos-config
 
 %clean
-rm -Rf $RPM_BUILD_ROOT
+rm -Rf %buildroot
 
-%if %mdkversion < 200900
-%post -n %{lib_name} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{lib_name} -p /sbin/ldconfig
-%endif
 
-%if %mdkversion < 200900
-%post -n %{lib_name_c} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{lib_name_c} -p /sbin/ldconfig
-%endif
-
-%files -n %{lib_name}
-%defattr(-,root,root)
-%{_libdir}/libgeos-%{major}.*.so
-
-%files -n %{lib_name_c}
-%defattr(-,root,root)
-%{_libdir}/libgeos_c.so.%{major_c}
-%{_libdir}/libgeos_c.so.%{major_c}.*
-
-%files -n %{devel_name}
-%defattr(-,root,root)
-%multiarch %{multiarch_bindir}/geos-config
-%{_bindir}/geos-config
-%{_bindir}/XMLTester
-%dir %{_includedir}/geos
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/*.a
-%exclude %{_libdir}/libgeos_c.so.%{major_c}*
-%exclude %{_libdir}/libgeos-%{major}.*.so
