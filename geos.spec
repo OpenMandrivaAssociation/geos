@@ -1,6 +1,6 @@
 Name:  geos
 Version: 3.2.2
-Release: %mkrel 1
+Release: %mkrel 2
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
 URL: http://trac.osgeo.org/geos
