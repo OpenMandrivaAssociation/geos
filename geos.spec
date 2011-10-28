@@ -72,6 +72,7 @@ points, lines, polygons, and collections.
 %{_libdir}/*.so
 %{_libdir}/*.la
 %multiarch %{multiarch_bindir}/geos-config
+
 %exclude %{_libdir}/libgeos-%{version}.so
 
 #-----------------------------------------------------------------------------
