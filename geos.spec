@@ -1,6 +1,6 @@
 Name:  geos
-Version: 3.2.2
-Release: %mkrel 2
+Version: 3.3.1
+Release: %mkrel 1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
 URL: http://trac.osgeo.org/geos
@@ -67,10 +67,10 @@ points, lines, polygons, and collections.
 
 %files -n %{devel_name}
 %defattr(-,root,root)
-%_bindir/geos-config
-%_includedir/*
-%_libdir/*.so
-%_libdir/*.la
+%{_bindir}/geos-config
+%{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/*.la
 %multiarch %{multiarch_bindir}/geos-config
 %exclude %{_libdir}/libgeos-%{version}.so
 
@@ -93,7 +93,7 @@ points, lines, polygons, and collections.
 
 %files -n %{devel_name_static}
 %defattr(-,root,root)
-%_libdir/*.a
+%{_libdir}/*.a
 
 
 #-----------------------------------------------------------------------------
@@ -108,7 +108,7 @@ points, lines, polygons, and collections.
 %install
 rm -Rf %buildroot
 %makeinstall_std
-%multiarch_binaries %buildroot%{_bindir}/geos-config
+%multiarch_binaries %{buildroot}%{_bindir}/geos-config
 
 %clean
 rm -Rf %buildroot
