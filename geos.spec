@@ -1,5 +1,5 @@
 Name:  geos
-Version: 3.3.2
+Version: 3.3.5
 Release: 1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
@@ -27,7 +27,6 @@ The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/libgeos-%{version}.so
 
 #-----------------------------------------------------------------------------
@@ -44,7 +43,6 @@ The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
 %files -n %{libname_c}
-%defattr(-,root,root)
 %{_libdir}/libgeos_c.so.%{major_c}*
 
 #-----------------------------------------------------------------------------
@@ -65,11 +63,9 @@ The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
 %files -n %{devel_name}
-%defattr(-,root,root)
 %{_bindir}/geos-config
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.la
 %multiarch %{multiarch_bindir}/geos-config
 
 %exclude %{_libdir}/libgeos-%{version}.so
@@ -92,7 +88,6 @@ The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
 %files -n %{devel_name_static}
-%defattr(-,root,root)
 %{_libdir}/*.a
 
 
