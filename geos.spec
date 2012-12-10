@@ -21,6 +21,7 @@ points, lines, polygons, and collections.
 Summary: Libraries for GEOS
 Group: Sciences/Geosciences
 Provides: %{name} lib%{name}
+Obsoletes: %{libname} < %{version}-%{release}
 
 %description -n %{libname}
 The GEOS library provides topological operators and simple spatial constructs:
@@ -37,6 +38,7 @@ points, lines, polygons, and collections.
 %package -n %{libname_c}
 Summary: Libraries for GEOS
 Group: Sciences/Geosciences
+Obsoletes: %{libname_c} < %{version}-%{release}
 
 %description -n %{libname_c}
 The GEOS library provides topological operators and simple spatial constructs:
