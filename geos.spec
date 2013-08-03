@@ -1,10 +1,11 @@
 Name:  geos
-Version: 3.3.5
+Version: 3.3.8
 Release: 1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
 URL: http://trac.osgeo.org/geos
 Source0: http://download.osgeo.org/geos/%{name}-%{version}.tar.bz2  
+Source1000: %{name}.rpmlintrc
 Group: Sciences/Geosciences
 BuildRequires: multiarch-utils
 
@@ -68,7 +69,7 @@ points, lines, polygons, and collections.
 %{_bindir}/geos-config
 %{_includedir}/*
 %{_libdir}/*.so
-%multiarch %{multiarch_bindir}/geos-config
+%{multiarch_bindir}/geos-config
 
 %exclude %{_libdir}/libgeos-%{version}.so
 
