@@ -100,7 +100,7 @@ points, lines, polygons, and collections.
 %setup -q
 
 %build
-%configure2_5x
+%configure2_5x --enable-static
 %make
 
 %install
