@@ -1,5 +1,2 @@
-removed_sources:
-  geos-3.3.5.tar.bz2: 791e2b36a9a6114c7f213fae3fc995960c35a428
-  geos-3.3.8.tar.bz2: 1743e09f37eb75d85283a684a5765c4f44d035fa
 sources:
-  geos-3.4.1.tar.bz2: 0fee633694049192726149f83c47fef4d73c7468
+  geos-3.5.0.tar.bz2: 142be1db41cb7c62afb9f6d3304769a39dd0b5ac
