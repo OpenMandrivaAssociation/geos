@@ -1,3 +1,4 @@
+%define _disable_lto 1
 Name:  geos
 Version: 3.5.0
 Release: 1
