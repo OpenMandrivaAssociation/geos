@@ -1,14 +1,13 @@
 %define _disable_lto 1
 Name:  geos
-Version: 3.5.0
-Release: 2
+Version: 3.7.2
+Release: 1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
 URL: http://trac.osgeo.org/geos
 Source0: http://download.osgeo.org/geos/%{name}-%{version}.tar.bz2  
 Source1000: %{name}.rpmlintrc
 Group: Sciences/Geosciences
-BuildRequires: multiarch-utils
 
 %description
 The GEOS library provides topological operators and simple spatial constructs:
@@ -70,7 +69,6 @@ points, lines, polygons, and collections.
 %{_bindir}/geos-config
 %{_includedir}/*
 %{_libdir}/*.so
-%{multiarch_bindir}/geos-config
 
 %exclude %{_libdir}/libgeos-%{version}.so
 
@@ -101,11 +99,10 @@ points, lines, polygons, and collections.
 %setup -q
 
 %build
-%configure2_5x --enable-static
+%configure --enable-static
 %make
 
 %install
 %makeinstall_std
 
-%multiarch_binaries %{buildroot}%{_bindir}/geos-config
 
