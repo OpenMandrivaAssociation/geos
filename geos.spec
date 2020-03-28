@@ -1,6 +1,6 @@
 %define _disable_lto 1
 Name:  geos
-Version:	3.8.0
+Version:	3.8.1
 Release:	1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
