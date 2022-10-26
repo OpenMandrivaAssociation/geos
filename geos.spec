@@ -1,6 +1,5 @@
-%define _disable_lto 1
 Name:  geos
-Version:	3.8.1
+Version:	3.11.0
 Release:	1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
@@ -13,10 +12,13 @@ Group: Sciences/Geosciences
 The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
+%files
+%{_bindir}/geosop
+
 #-----------------------------------------------------------------------------
 
 %define major 3
-%define libname	%mklibname geos %{major}
+%define libname	%mklibname geos
 
 %package -n %{libname}
 Summary: Libraries for GEOS
@@ -29,12 +31,12 @@ The GEOS library provides topological operators and simple spatial constructs:
 points, lines, polygons, and collections.
 
 %files -n %{libname}
-%{_libdir}/libgeos-%{version}.so
+%{_libdir}/libgeos.so.%{major}*
 
 #-----------------------------------------------------------------------------
 
 %define major_c	1
-%define libname_c %mklibname geos_c %{major_c}
+%define libname_c %mklibname geos_c
 
 %package -n %{libname_c}
 Summary: Libraries for GEOS
@@ -59,7 +61,6 @@ Requires: %{libname} = %{version}
 Requires: %{libname_c} = %{version}
 Provides: %{name}-devel = %{version}
 Provides: libgeos-devel = %{version}
-Obsoletes: %{mklibname -d geos 3}
 
 %description -n %{devel_name}
 The GEOS library provides topological operators and simple spatial constructs:
@@ -69,40 +70,17 @@ points, lines, polygons, and collections.
 %{_bindir}/geos-config
 %{_includedir}/*
 %{_libdir}/*.so
-
-%exclude %{_libdir}/libgeos-%{version}.so
-
-#-----------------------------------------------------------------------------
-
-%define devel_name_static %mklibname %{name} -d -s
-
-%package -n %{devel_name_static}
-Summary: Development Libraries for the GEOS topology library
-Group: Sciences/Geosciences
-Requires: %{devel_name} = %{version}
-Provides: %{name}-static-devel = %{version}
-Provides: libgeos-static-devel = %{version}
-Obsoletes: %{mklibname -d geos 3}
-Obsoletes: %{mklibname -d -s geos 3}
-
-%description -n %{devel_name_static}
-The GEOS library provides topological operators and simple spatial constructs:
-points, lines, polygons, and collections.
-
-%files -n %{devel_name_static}
-%{_libdir}/*.a
-
+%{_libdir}/cmake/GEOS
+%{_libdir}/pkgconfig/*.pc
 
 #-----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
+%configure
 
 %build
-%configure --enable-static
-%make
+%make_build
 
 %install
-%makeinstall_std
-
-
+%make_install
