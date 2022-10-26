@@ -7,6 +7,7 @@ URL: http://trac.osgeo.org/geos
 Source0: http://download.osgeo.org/geos/%{name}-%{version}.tar.bz2  
 Source1000: %{name}.rpmlintrc
 Group: Sciences/Geosciences
+BuildRequires: cmake
 
 %description
 The GEOS library provides topological operators and simple spatial constructs:
