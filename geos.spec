@@ -3,7 +3,7 @@ Version:	3.11.2
 Release:	1
 License: LGPLv2+
 Summary: GEOS (Geometry Engine, Open Source) topology library
-URL: http://trac.osgeo.org/geos
+URL: https://trac.osgeo.org/geos
 Source0: http://download.osgeo.org/geos/%{name}-%{version}.tar.bz2  
 Source1000: %{name}.rpmlintrc
 Patch0:   geos-add-missing-include.patch 
